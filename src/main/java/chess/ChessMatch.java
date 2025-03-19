@@ -10,7 +10,6 @@ import chess.pieces.Pawn;
 import chess.pieces.Queen;
 import chess.pieces.Rook;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,13 +112,15 @@ public class ChessMatch {
     }
 
     public ChessPiece replacePromotedPiece(String type) {
-        if (promoted == null)
+        if (promoted == null) {
             throw new IllegalStateException("there is no piece to be promoted");
+        }
         if (!type.equals("B") &&
                 !type.equals("N") &&
                 !type.equals("R") &&
-                !type.equals("Q"))
-            throw new InvalidParameterException("invalid type for promotion");
+                !type.equals("Q")) {
+            return promoted;
+        }
 
         Position pos = promoted.getChessPosition().toPosition();
         Piece p = board.removePiece(pos);
